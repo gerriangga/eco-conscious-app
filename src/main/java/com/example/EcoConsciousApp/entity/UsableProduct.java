@@ -1,11 +1,14 @@
 package com.example.EcoConsciousApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "mst_usable_product")
@@ -24,4 +27,8 @@ public class UsableProduct {
     private Integer usableProductPrice;
     private Integer usableProductStock;
     private Boolean usableProductIsDeleted;
+
+    @OneToMany(mappedBy = "usableProduct", cascade = CascadeType.PERSIST)
+    @JsonIgnoreProperties("usableProduct")
+    private List<ProductScrapsVendor> usableProductVendorList = new ArrayList<>();
 }
