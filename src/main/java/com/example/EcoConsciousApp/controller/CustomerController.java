@@ -49,5 +49,15 @@ public class CustomerController {
         return customerService.saveCustomer(customer);
     }
 
+    @DeleteMapping
+    public ResponseEntity<Response<Customer>> deleteCustomer(@RequestParam String id) {
+        Response<Customer> response = new Response<>();
+        String message = String.format("Deleted");
+        response.setMessage(message);
+        customerService.deleteCustomer(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(response);
+    }
 
 }
