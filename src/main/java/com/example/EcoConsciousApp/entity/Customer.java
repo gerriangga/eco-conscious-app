@@ -1,11 +1,15 @@
 package com.example.EcoConsciousApp.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "mst_customer")
+@Data
+@NoArgsConstructor
 public class Customer {
 
     @Id
