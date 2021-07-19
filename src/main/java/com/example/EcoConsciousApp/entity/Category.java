@@ -22,8 +22,4 @@ public class Category {
     private String id;
     private String categoryName;
     private String categoryDescription;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
-    @JsonIgnoreProperties("category")
-    private List<ProductScraps> productScrapsList = new ArrayList<>();
 }

@@ -34,11 +34,6 @@ public class ProductScraps {
 
     private String userID;
 
-    @ManyToOne
-    @JoinColumn(name="category_id")
-    @JsonIgnoreProperties("productScrapsList")
-    private Category category;
-
     @OneToMany(mappedBy = "productScraps", cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties("productScraps")
     private List<ProductScrapsVendor> productScrapsVendorList = new ArrayList<>();
