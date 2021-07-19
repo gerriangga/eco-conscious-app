@@ -44,5 +44,10 @@ public class CustomerController {
         return customerService.getCustomerById(customerId);
     }
 
+    @PutMapping
+    public Customer updateCustomer(@RequestBody Customer customer) {
+        return customerService.saveCustomer(customer);
+    }
+
 
 }
