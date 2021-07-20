@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,7 @@ public class CustomerController {
     CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<Response<Customer>> createCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<Response<Customer>> createCustomer(@Valid @RequestBody Customer customer) {
         Response<Customer> response = new Response<>();
         String message = String.format(ResponseMessage.DATA_INSERTED, "customer");
         response.setMessage(message);
