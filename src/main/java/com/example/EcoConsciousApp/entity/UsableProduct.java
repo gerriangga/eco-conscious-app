@@ -1,5 +1,6 @@
 package com.example.EcoConsciousApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -20,6 +21,7 @@ public class UsableProduct {
     private String id;
     private String usableProductName;
     private String usableProductDescription;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date usableProductUploadDate;
     private Double usableProductPrice;
     private Integer usableProductStock;
