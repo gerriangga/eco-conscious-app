@@ -21,7 +21,7 @@ public class UsableProduct {
     private String usableProductName;
     private String usableProductDescription;
     private Date usableProductUploadDate;
-    private Integer usableProductPrice;
+    private Double usableProductPrice;
     private Integer usableProductStock;
     private Boolean usableProductIsDeleted;
 }
