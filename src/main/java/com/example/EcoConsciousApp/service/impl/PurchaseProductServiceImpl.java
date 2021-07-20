@@ -4,7 +4,6 @@ import com.example.EcoConsciousApp.entity.PurchaseProduct;
 import com.example.EcoConsciousApp.entity.PurchaseProductDetail;
 import com.example.EcoConsciousApp.entity.UsableProduct;
 import com.example.EcoConsciousApp.repository.PurchaseProductRepository;
-import com.example.EcoConsciousApp.service.CustomerService;
 import com.example.EcoConsciousApp.service.PurchaseProductDetailService;
 import com.example.EcoConsciousApp.service.PurchaseProductService;
 import com.example.EcoConsciousApp.service.UsableProductService;
