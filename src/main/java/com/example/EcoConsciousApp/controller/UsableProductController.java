@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class UsableProductController {
     UsableProductService usableProductService;
 
     @PostMapping
-    public ResponseEntity<Response<UsableProduct>> createUsableProduct(@RequestBody UsableProduct usableProduct) {
+    public ResponseEntity<Response<UsableProduct>> createUsableProduct(@Valid @RequestBody UsableProduct usableProduct) {
         Response<UsableProduct> response = new Response<>();
         String message = String.format(ResponseMessage.DATA_INSERTED, "usable product");
         response.setMessage(message);

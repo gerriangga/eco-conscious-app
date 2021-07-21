@@ -3,10 +3,13 @@ package com.example.EcoConsciousApp.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -48,7 +51,9 @@ public class Customer {
     @NotNull(message = "Please provide a status")
     private Integer status;
 
-    @OneToMany(mappedBy = "customer")
+    private Boolean isDeleted;
+
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties("customer")
     private List<PurchaseProduct> purchaseProducts = new ArrayList<>();
 
