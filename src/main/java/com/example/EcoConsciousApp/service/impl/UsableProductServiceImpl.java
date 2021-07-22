@@ -1,6 +1,8 @@
 package com.example.EcoConsciousApp.service.impl;
 
+import com.example.EcoConsciousApp.constant.ResponseMessage;
 import com.example.EcoConsciousApp.entity.UsableProduct;
+import com.example.EcoConsciousApp.exception.DataNotFoundException;
 import com.example.EcoConsciousApp.repository.UsableProductRepository;
 import com.example.EcoConsciousApp.service.UsableProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ public class UsableProductServiceImpl implements UsableProductService {
 
     @Override
     public UsableProduct getUsableProductById(String id) {
+        validatePresent(id);
         return usableProductRepository.findById(id).get();
     }
 
@@ -31,6 +34,14 @@ public class UsableProductServiceImpl implements UsableProductService {
 
     @Override
     public void deleteUsableProduct(String id) {
+        validatePresent(id);
         usableProductRepository.deleteById(id);
+    }
+
+    private void validatePresent(String id) {
+        if (!usableProductRepository.findById(id).isPresent()) {
+            String message = String.format(ResponseMessage.NOT_FOUND_MESSAGE, "usable product", id);
+            throw new DataNotFoundException(message);
+        }
     }
 }

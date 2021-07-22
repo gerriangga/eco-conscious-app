@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(ApiUrlConstant.PURCHASE_PRODUCT)
 public class PurchaseProductController {
@@ -18,7 +20,7 @@ public class PurchaseProductController {
     PurchaseProductService purchaseProductService;
 
     @PostMapping
-    public ResponseEntity<Response<PurchaseProduct>> customerPurchaseProduct(@RequestBody PurchaseProduct purchaseProduct){
+    public ResponseEntity<Response<PurchaseProduct>> customerPurchaseProduct(@Valid @RequestBody PurchaseProduct purchaseProduct){
         String message = String.format(ResponseMessage.DATA_INSERTED, "purchase product");
         Response<PurchaseProduct> response = new Response<>();
         response.setMessage(message);

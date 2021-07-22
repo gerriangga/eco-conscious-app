@@ -20,15 +20,6 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(CustomerNotFoundException.class)
-    public void springHandleNotFound(HttpServletResponse response) throws IOException {
-        response.sendError(HttpStatus.NOT_FOUND.value());
-    }
-
-    @ExceptionHandler(CustomerUnSupportedFieldPatchException.class)
-    public void springUnSupportedFieldPatch(HttpServletResponse response) throws IOException {
-        response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
-    }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public void constraintViolationException(HttpServletResponse response) throws IOException {

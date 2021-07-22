@@ -22,8 +22,7 @@ public class PurchaseProduct {
     @Column(name = "purchase_product_id")
     private String id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date purchaseProductDate;
+    private Date purchaseProductDate = new Date();
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

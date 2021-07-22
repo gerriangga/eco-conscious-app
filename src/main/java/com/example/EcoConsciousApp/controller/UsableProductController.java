@@ -49,9 +49,10 @@ public class UsableProductController {
     @DeleteMapping
     public ResponseEntity<Response<UsableProduct>> deleteUsableProduct(@RequestParam String id) {
         Response<UsableProduct> response = new Response<>();
-        String message = String.format("Deleted");
+        String message = String.format(ResponseMessage.DATA_DELETED, "usable product");
         response.setMessage(message);
         usableProductService.deleteUsableProduct(id);
+        response.setData(usableProductService.getUsableProductById(id));
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(response);

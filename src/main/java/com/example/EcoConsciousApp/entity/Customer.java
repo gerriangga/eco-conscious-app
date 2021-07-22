@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.*;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.persistence.CascadeType;
@@ -12,12 +11,13 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "mst_customer")
+@SQLDelete(sql = "UPDATE mst_customer SET is_deleted = true WHERE customer_id = ?")
 @Data
 @NoArgsConstructor
 public class Customer {
@@ -28,30 +28,29 @@ public class Customer {
     @Column(name = "customer_id")
     private String id;
 
-    @NotEmpty(message = "Please provide a first name")
+    @NotEmpty(message = "First name is required.")
     private String firstName;
 
-    @NotEmpty(message = "Please provide a last name")
+    @NotEmpty(message = "Last name is required.")
     private String lastName;
 
     @Column(name = "customer_address")
-    @NotEmpty(message = "Please provide a address")
+    @NotEmpty(message = "Customer address is required.")
     private String address;
 
-    @NotEmpty(message = "Please provide a phone number")
+    @NotEmpty(message = "Phone number is required.")
     private String phoneNumber;
 
-    @NotEmpty(message = "Please provide a email")
-    @Email(message = "Email not valid")
+    @NotEmpty(message = "Email is required.")
+    @Email(message = "Email should be a valid email format.")
     private String email;
 
-    @NotEmpty(message = "Please provide a password")
+    @NotEmpty(message = "Password is required.")
+    @Size(min = 8, message = "Password should have at least 8 characters.")
     private String password;
 
-    @NotNull(message = "Please provide a status")
-    private Integer status;
-
-    private Boolean isDeleted;
+    private Integer status = 0;
+    private Boolean isDeleted = Boolean.FALSE;
 
     @OneToMany(mappedBy = "customer",cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties("customer")

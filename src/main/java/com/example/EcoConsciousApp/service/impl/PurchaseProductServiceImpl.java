@@ -1,8 +1,10 @@
 package com.example.EcoConsciousApp.service.impl;
 
+import com.example.EcoConsciousApp.constant.ResponseMessage;
 import com.example.EcoConsciousApp.entity.PurchaseProduct;
 import com.example.EcoConsciousApp.entity.PurchaseProductDetail;
 import com.example.EcoConsciousApp.entity.UsableProduct;
+import com.example.EcoConsciousApp.exception.DataNotFoundException;
 import com.example.EcoConsciousApp.repository.PurchaseProductRepository;
 import com.example.EcoConsciousApp.service.PurchaseProductDetailService;
 import com.example.EcoConsciousApp.service.PurchaseProductService;
@@ -41,6 +43,14 @@ public class PurchaseProductServiceImpl implements PurchaseProductService {
 
     @Override
     public PurchaseProduct getTransactionById(String id) {
+        validatePresent(id);
         return purchaseProductRepository.findById(id).get();
+    }
+
+    private void validatePresent(String id) {
+        if (!purchaseProductRepository.findById(id).isPresent()) {
+            String message = String.format(ResponseMessage.NOT_FOUND_MESSAGE, "purchase product", id);
+            throw new DataNotFoundException(message);
+        }
     }
 }

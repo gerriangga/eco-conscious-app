@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name = "trx_purchase_product_detail")
@@ -19,6 +21,9 @@ public class PurchaseProductDetail {
     private String id;
 
     private Double priceSell;
+
+    @NotNull(message = "Quantity is required.")
+    @Positive(message = "Quantity must be greater than 0")
     private Integer quantity;
 
     @ManyToOne
