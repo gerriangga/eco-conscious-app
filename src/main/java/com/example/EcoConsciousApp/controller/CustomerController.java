@@ -4,11 +4,17 @@ package com.example.EcoConsciousApp.controller;
 import com.example.EcoConsciousApp.constant.ApiUrlConstant;
 
 import com.example.EcoConsciousApp.constant.ResponseMessage;
+import com.example.EcoConsciousApp.dto.CustomerSearchDTO;
 import com.example.EcoConsciousApp.entity.Customer;
 import com.example.EcoConsciousApp.service.CustomerService;
+import com.example.EcoConsciousApp.utils.PageResponseWrapperUtils;
 import com.example.EcoConsciousApp.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,8 +45,18 @@ public class CustomerController {
     }
 
     @GetMapping
-    public List<Customer> getAllCustomer() {
-        return customerService.getAllCustomer();
+    public PageResponseWrapperUtils<Customer> searchCustomerPerPage(@RequestParam(name = "firstName", required = false) String firstName,
+                                                                    @RequestParam(name = "lastName", required = false) String lastName,
+                                                                    @RequestParam(name = "email", required = false) String email,
+                                                                    @RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                                    @RequestParam(name = "size", defaultValue = "3") Integer sizePerPage,
+                                                                    @RequestParam(name = "sortBy", defaultValue = "firstName") String sortBy,
+                                                                    @RequestParam(name = "direction", defaultValue = "ASC") String direction){
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
+        Pageable pageable = PageRequest.of(page, sizePerPage, sort);
+        CustomerSearchDTO customerSearchDTO = new CustomerSearchDTO(firstName, lastName, email);
+        Page<Customer> customerPage = customerService.getCustomerPerPage(pageable, customerSearchDTO);
+        return new PageResponseWrapperUtils<Customer>(customerPage);
     }
 
     @GetMapping("/{customerId}")
