@@ -1,12 +1,16 @@
 package com.example.EcoConsciousApp.service.impl;
 
 import com.example.EcoConsciousApp.constant.ResponseMessage;
-import com.example.EcoConsciousApp.entity.Customer;
+import com.example.EcoConsciousApp.dto.UsableProductSearchDTO;
 import com.example.EcoConsciousApp.entity.UsableProduct;
 import com.example.EcoConsciousApp.exception.DataNotFoundException;
 import com.example.EcoConsciousApp.repository.UsableProductRepository;
 import com.example.EcoConsciousApp.service.UsableProductService;
+import com.example.EcoConsciousApp.specification.UsableProductSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,6 +46,12 @@ public class UsableProductServiceImpl implements UsableProductService {
     @Override
     public List<UsableProduct> getAllUsableProduct() {
         return usableProductRepository.findAll();
+    }
+
+    @Override
+    public Page<UsableProduct> getUsableProductPerPage(Pageable pageable, UsableProductSearchDTO usableProductSearchDTO) {
+        Specification<UsableProduct> usableProductSpecification = UsableProductSpecification.getSpecification(usableProductSearchDTO);
+        return usableProductRepository.findAll(usableProductSpecification, pageable);
     }
 
     @Override
