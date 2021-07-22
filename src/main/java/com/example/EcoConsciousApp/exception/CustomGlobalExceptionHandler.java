@@ -21,6 +21,12 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(DataNotFoundException.class)
+    public ResponseEntity<?> dataNotFoundException(DataNotFoundException ex) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(), ex.getMessage());
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     public void constraintViolationException(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.BAD_REQUEST.value());
@@ -33,7 +39,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", new Date());
-        body.put("status", status.value());
+        body.put("statusCode", status.value());
 
         //Get all errors
         List<String> errors = ex.getBindingResult()
@@ -46,4 +52,6 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
         return new ResponseEntity<>(body, headers, status);
     }
+
+
 }

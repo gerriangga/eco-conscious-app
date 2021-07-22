@@ -22,6 +22,19 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Customer updateCustomer(Customer customer, String id) {
+        validatePresent(id);
+        Customer customerById = customerRepository.findById(id).get();
+        customerById.setFirstName(customer.getFirstName());
+        customerById.setLastName(customer.getLastName());
+        customerById.setAddress(customer.getAddress());
+        customerById.setPhoneNumber(customer.getPhoneNumber());
+        customerById.setEmail(customer.getEmail());
+        customerById.setPassword(customer.getPassword());
+        return  customerRepository.save(customerById);
+    }
+
+    @Override
     public Customer getCustomerById(String id) {
         validatePresent(id);
        return customerRepository.findById(id).get();

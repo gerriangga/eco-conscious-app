@@ -4,7 +4,7 @@ import com.example.EcoConsciousApp.constant.ApiUrlConstant;
 import com.example.EcoConsciousApp.constant.ResponseMessage;
 import com.example.EcoConsciousApp.entity.PurchaseProduct;
 import com.example.EcoConsciousApp.service.PurchaseProductService;
-import com.example.EcoConsciousApp.utils.Response;
+import com.example.EcoConsciousApp.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,14 +20,13 @@ public class PurchaseProductController {
     PurchaseProductService purchaseProductService;
 
     @PostMapping
-    public ResponseEntity<Response<PurchaseProduct>> customerPurchaseProduct(@Valid @RequestBody PurchaseProduct purchaseProduct){
+    public ResponseEntity<ResponseUtils> customerPurchaseProduct(@Valid @RequestBody PurchaseProduct purchaseProduct){
         String message = String.format(ResponseMessage.DATA_INSERTED, "purchase product");
-        Response<PurchaseProduct> response = new Response<>();
-        response.setMessage(message);
-        response.setData(purchaseProductService.transaction(purchaseProduct));
+        ResponseUtils responseUtils = new ResponseUtils();
+        responseUtils.setMessage(message);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(response);
+                .body(responseUtils);
     }
 
     @GetMapping("/{id}")

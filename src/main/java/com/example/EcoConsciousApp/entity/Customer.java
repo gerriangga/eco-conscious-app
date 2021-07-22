@@ -28,25 +28,26 @@ public class Customer {
     @Column(name = "customer_id")
     private String id;
 
-    @NotEmpty(message = "First name is required.")
+    @NotEmpty(message = "firstName is required.")
     private String firstName;
 
-    @NotEmpty(message = "Last name is required.")
+    @NotEmpty(message = "lastName is required.")
     private String lastName;
 
     @Column(name = "customer_address")
-    @NotEmpty(message = "Customer address is required.")
+    @NotEmpty(message = "address is required.")
     private String address;
 
-    @NotEmpty(message = "Phone number is required.")
+    @NotEmpty(message = "phoneNumber is required.")
     private String phoneNumber;
 
-    @NotEmpty(message = "Email is required.")
+    @Column(name = "email_address")
+    @NotEmpty(message = "email is required.")
     @Email(message = "Email should be a valid email format.")
     private String email;
 
-    @NotEmpty(message = "Password is required.")
-    @Size(min = 8, message = "Password should have at least 8 characters.")
+    @NotEmpty(message = "password is required.")
+    @Size(min = 8, message = "password should have at least 8 characters.")
     private String password;
 
     private Integer status = 0;

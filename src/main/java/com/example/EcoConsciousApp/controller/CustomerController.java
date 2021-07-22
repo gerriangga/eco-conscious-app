@@ -6,7 +6,7 @@ import com.example.EcoConsciousApp.constant.ApiUrlConstant;
 import com.example.EcoConsciousApp.constant.ResponseMessage;
 import com.example.EcoConsciousApp.entity.Customer;
 import com.example.EcoConsciousApp.service.CustomerService;
-import com.example.EcoConsciousApp.utils.Response;
+import com.example.EcoConsciousApp.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -25,14 +26,16 @@ public class CustomerController {
     CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<Response<Customer>> createCustomer(@Valid @RequestBody Customer customer) {
-        Response<Customer> response = new Response<>();
+    public ResponseEntity<ResponseUtils> createCustomer(@Valid @RequestBody Customer customer) {
+        ResponseUtils responseUtils = new ResponseUtils();
+        responseUtils.setTimestamp(new Date());
+        responseUtils.setStatusCode(HttpStatus.CREATED.value());
         String message = String.format(ResponseMessage.DATA_INSERTED, "customer");
-        response.setMessage(message);
-        response.setData(customerService.saveCustomer(customer));
+        responseUtils.setMessage(message);
+        customerService.saveCustomer(customer);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(response);
+                .body(responseUtils);
     }
 
     @GetMapping
@@ -45,21 +48,30 @@ public class CustomerController {
         return customerService.getCustomerById(customerId);
     }
 
-    @PutMapping
-    public Customer updateCustomer(@RequestBody Customer customer) {
-        return customerService.saveCustomer(customer);
+    @PutMapping("/{customerId}")
+    public ResponseEntity<ResponseUtils> updateCustomer(@PathVariable String customerId, @Valid @RequestBody Customer customer) {
+        ResponseUtils responseUtils = new ResponseUtils();
+        responseUtils.setTimestamp(new Date());
+        responseUtils.setStatusCode(HttpStatus.OK.value());
+        String message = String.format(ResponseMessage.DATA_UPDATED, "customer", customerId);
+        responseUtils.setMessage(message);
+        customerService.updateCustomer(customer, customerId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(responseUtils);
     }
 
     @DeleteMapping
-    public ResponseEntity<Response<Customer>> deleteCustomer(@RequestParam String id) {
-        Response<Customer> response = new Response<>();
+    public ResponseEntity<ResponseUtils> deleteCustomer(@RequestParam String id) {
+        ResponseUtils responseUtils = new ResponseUtils();
+        responseUtils.setTimestamp(new Date());
+        responseUtils.setStatusCode(HttpStatus.OK.value());
         String message = String.format(ResponseMessage.DATA_DELETED, "customer");
-        response.setMessage(message);
+        responseUtils.setMessage(message);
         customerService.deleteCustomer(id);
-        response.setData(customerService.getCustomerById(id));
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(response);
+                .body(responseUtils);
     }
 
 }

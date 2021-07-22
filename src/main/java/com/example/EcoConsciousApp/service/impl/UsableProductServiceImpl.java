@@ -1,6 +1,7 @@
 package com.example.EcoConsciousApp.service.impl;
 
 import com.example.EcoConsciousApp.constant.ResponseMessage;
+import com.example.EcoConsciousApp.entity.Customer;
 import com.example.EcoConsciousApp.entity.UsableProduct;
 import com.example.EcoConsciousApp.exception.DataNotFoundException;
 import com.example.EcoConsciousApp.repository.UsableProductRepository;
@@ -19,6 +20,17 @@ public class UsableProductServiceImpl implements UsableProductService {
     @Override
     public UsableProduct saveUsableProduct(UsableProduct usableProduct) {
         return usableProductRepository.save(usableProduct);
+    }
+
+    @Override
+    public UsableProduct updateUsableProduct(UsableProduct usableProduct, String id) {
+        validatePresent(id);
+        UsableProduct usableProductById = usableProductRepository.findById(id).get();
+        usableProductById.setUsableProductName(usableProduct.getUsableProductName());
+        usableProductById.setUsableProductDescription(usableProduct.getUsableProductDescription());
+        usableProductById.setUsableProductPrice(usableProduct.getUsableProductPrice());
+        usableProductById.setUsableProductStock(usableProduct.getUsableProductStock());
+        return  usableProductRepository.save(usableProductById);
     }
 
     @Override
