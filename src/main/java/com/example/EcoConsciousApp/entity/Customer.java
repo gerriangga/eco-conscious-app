@@ -13,6 +13,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -51,6 +52,7 @@ public class Customer {
     private String password;
 
     private Integer status = 0;
+    private Date createdAt = new Date();
     private Boolean isDeleted = Boolean.FALSE;
 
     @OneToMany(mappedBy = "customer",cascade = CascadeType.PERSIST)

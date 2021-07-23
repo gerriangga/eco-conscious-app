@@ -7,8 +7,10 @@ import com.example.EcoConsciousApp.constant.ResponseMessage;
 import com.example.EcoConsciousApp.dto.CustomerSearchDTO;
 import com.example.EcoConsciousApp.entity.Customer;
 import com.example.EcoConsciousApp.service.CustomerService;
+import com.example.EcoConsciousApp.service.ReportCustomerService;
 import com.example.EcoConsciousApp.utils.PageResponseWrapperUtils;
 import com.example.EcoConsciousApp.utils.ResponseUtils;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
@@ -21,8 +23,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.FileNotFoundException;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping(ApiUrlConstant.CUSTOMER)
@@ -30,6 +32,9 @@ public class CustomerController {
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    ReportCustomerService reportCustomerService;
 
     @PostMapping
     public ResponseEntity<ResponseUtils> createCustomer(@Valid @RequestBody Customer customer) {
@@ -57,6 +62,11 @@ public class CustomerController {
         CustomerSearchDTO customerSearchDTO = new CustomerSearchDTO(firstName, lastName, email);
         Page<Customer> customerPage = customerService.getCustomerPerPage(pageable, customerSearchDTO);
         return new PageResponseWrapperUtils<Customer>(customerPage);
+    }
+
+    @GetMapping("/report/{format}")
+    public String generateReport(@PathVariable String format) throws FileNotFoundException, JRException {
+        return reportCustomerService.exportReport(format);
     }
 
     @GetMapping("/{customerId}")

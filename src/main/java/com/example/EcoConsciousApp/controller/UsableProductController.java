@@ -4,9 +4,11 @@ import com.example.EcoConsciousApp.constant.ApiUrlConstant;
 import com.example.EcoConsciousApp.constant.ResponseMessage;
 import com.example.EcoConsciousApp.dto.UsableProductSearchDTO;
 import com.example.EcoConsciousApp.entity.UsableProduct;
+import com.example.EcoConsciousApp.service.ReportUsableProductService;
 import com.example.EcoConsciousApp.service.UsableProductService;
 import com.example.EcoConsciousApp.utils.PageResponseWrapperUtils;
 import com.example.EcoConsciousApp.utils.ResponseUtils;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,14 +20,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.FileNotFoundException;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping(ApiUrlConstant.USABLE_PRODUCT)
 public class UsableProductController {
     @Autowired
     UsableProductService usableProductService;
+
+    @Autowired
+    ReportUsableProductService reportUsableProductService;
 
     @PostMapping
     public ResponseEntity<ResponseUtils> createUsableProduct(@Valid @RequestBody UsableProduct usableProduct) {
@@ -57,6 +62,11 @@ public class UsableProductController {
         UsableProductSearchDTO usableProductSearchDTO = new UsableProductSearchDTO(usableProductName, usableProductDescription);
         Page<UsableProduct> usableProductPage = usableProductService.getUsableProductPerPage(pageable, usableProductSearchDTO);
         return new PageResponseWrapperUtils<UsableProduct>(usableProductPage);
+    }
+
+    @GetMapping("/report/{format}")
+    public String generateReportUsableProduct(@PathVariable String format) throws FileNotFoundException, JRException {
+        return reportUsableProductService.exportReport(format);
     }
 
     @GetMapping("/{usableProductId}")
