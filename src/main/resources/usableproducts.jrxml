@@ -62,7 +62,7 @@
                 <textElement textAlignment="Center">
                     <font size="14" isBold="true"/>
                 </textElement>
-                <text><![CDATA[Usable Product Name]]></text>
+                <text><![CDATA[Product Name]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="184" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="503e489a-6c13-4112-b881-761c59740a18">
@@ -89,7 +89,7 @@
                 <textElement textAlignment="Center">
                     <font size="14" isBold="true"/>
                 </textElement>
-                <text><![CDATA[Product Price]]></text>
+                <text><![CDATA[Price]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="460" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="41aab0c3-5a41-46b4-aba7-5782a4e1f407">
