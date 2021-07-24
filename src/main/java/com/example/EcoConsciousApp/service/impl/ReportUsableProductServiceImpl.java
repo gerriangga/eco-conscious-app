@@ -1,5 +1,6 @@
 package com.example.EcoConsciousApp.service.impl;
 
+import com.example.EcoConsciousApp.constant.PathConstant;
 import com.example.EcoConsciousApp.entity.UsableProduct;
 import com.example.EcoConsciousApp.repository.UsableProductRepository;
 import com.example.EcoConsciousApp.service.ReportUsableProductService;
@@ -23,7 +24,6 @@ public class ReportUsableProductServiceImpl implements ReportUsableProductServic
 
     @Override
     public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
-        String path = "C:\\ProjectDev\\JavaProjects\\EnigmaCamp\\FinalProject\\eco-conscious-app\\src\\main\\report";
         List<UsableProduct> usableProducts = usableProductRepository.findAll();
         File file = ResourceUtils.getFile("classpath:usableproducts.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -33,12 +33,12 @@ public class ReportUsableProductServiceImpl implements ReportUsableProductServic
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 
         if (reportFormat.equalsIgnoreCase("html")) {
-            JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\usable-products.html");
+            JasperExportManager.exportReportToHtmlFile(jasperPrint, PathConstant.PATH_REPORT + "\\usable-products.html");
         }
 
         if (reportFormat.equalsIgnoreCase("pdf")) {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\usable-products.pdf");
+            JasperExportManager.exportReportToPdfFile(jasperPrint, PathConstant.PATH_REPORT + "\\usable-products.pdf");
         }
-        return "report generated in path : " + path;
+        return "report generated in path : " + PathConstant.PATH_REPORT;
     }
 }
