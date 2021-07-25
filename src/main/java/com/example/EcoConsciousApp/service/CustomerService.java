@@ -14,4 +14,5 @@ public interface CustomerService {
     public List<Customer> getAllCustomer();
     public Page<Customer> getCustomerPerPage(Pageable pageable, CustomerSearchDTO customerSearchDTO);
     public void deleteCustomer(String id);
+    public void updateCustomerStatus(String id);
 }

@@ -100,4 +100,9 @@ public class CustomerController {
                 .body(responseUtils);
     }
 
+    @PutMapping("/active")
+    public void changeCustomerStatusActive(@RequestParam(name = "id") String id){
+        customerService.updateCustomerStatus(id);
+    }
+
 }

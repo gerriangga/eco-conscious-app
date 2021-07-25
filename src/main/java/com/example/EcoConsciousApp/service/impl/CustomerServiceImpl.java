@@ -62,6 +62,11 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.deleteById(id);
     }
 
+    @Override
+    public void updateCustomerStatus(String id) {
+        customerRepository.updateCustomerStatus(id);
+    }
+
     private void validatePresent(String id) {
         if (!customerRepository.findById(id).isPresent()){
             String message = String.format(ResponseMessage.NOT_FOUND_MESSAGE, "customer", id);
