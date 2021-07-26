@@ -51,11 +51,16 @@ public class Customer {
     @Size(min = 8, message = "password should have at least 8 characters.")
     private String password;
 
+    private String profileImage;
+
+    @Lob
+    private byte[] data;
+
     private Integer status = 0;
     private Date createdAt = new Date();
     private Boolean isDeleted = Boolean.FALSE;
 
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties("customer")
     private List<PurchaseProduct> purchaseProducts = new ArrayList<>();
 

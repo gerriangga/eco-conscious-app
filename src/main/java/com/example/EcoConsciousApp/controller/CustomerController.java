@@ -6,24 +6,32 @@ import com.example.EcoConsciousApp.constant.ApiUrlConstant;
 import com.example.EcoConsciousApp.constant.ResponseMessage;
 import com.example.EcoConsciousApp.dto.CustomerSearchDTO;
 import com.example.EcoConsciousApp.entity.Customer;
+import com.example.EcoConsciousApp.entity.UsableProduct;
 import com.example.EcoConsciousApp.service.CustomerService;
 import com.example.EcoConsciousApp.service.ReportCustomerService;
 import com.example.EcoConsciousApp.utils.PageResponseWrapperUtils;
 import com.example.EcoConsciousApp.utils.ResponseUtils;
+import com.example.EcoConsciousApp.utils.UploadFileResponse;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 
 @RestController
@@ -74,6 +82,18 @@ public class CustomerController {
         return customerService.getCustomerById(customerId);
     }
 
+    @GetMapping("download-image/{customerId}")
+    public ResponseEntity<Resource> downloadImageFile(@PathVariable String customerId, MultipartFile multipartFile) {
+        Customer customer = customerService.getImageFile(customerId);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("image/jpeg"))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename= " + customer.getProfileImage())
+                .body(new ByteArrayResource(customer.getData()));
+
+
+    }
+
     @PutMapping("/{customerId}")
     public ResponseEntity<ResponseUtils> updateCustomer(@PathVariable String customerId, @Valid @RequestBody Customer customer) {
         ResponseUtils responseUtils = new ResponseUtils();
@@ -101,8 +121,20 @@ public class CustomerController {
     }
 
     @PutMapping("/active")
-    public void changeCustomerStatusActive(@RequestParam(name = "id") String id){
+    public void changeCustomerStatusActive(@RequestParam(name = "id") String id) {
         customerService.updateCustomerStatus(id);
     }
 
+    @PutMapping("/insert-image")
+    public UploadFileResponse uploadImageFile(@RequestParam String id, @RequestParam("imageFile") MultipartFile multipartFile) throws IOException {
+
+        Customer customer = customerService.storeImageFile(multipartFile, id);
+
+        String imageFileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(ApiUrlConstant.CUSTOMER + "/download-image/")
+                .path(customer.getId())
+                .toUriString();
+
+        return new UploadFileResponse(customer.getProfileImage(), imageFileDownloadUri, multipartFile.getContentType(), multipartFile.getSize());
+    }
 }

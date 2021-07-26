@@ -3,6 +3,7 @@ package com.example.EcoConsciousApp.service.impl;
 import com.example.EcoConsciousApp.constant.ResponseMessage;
 import com.example.EcoConsciousApp.dto.CustomerSearchDTO;
 import com.example.EcoConsciousApp.entity.Customer;
+import com.example.EcoConsciousApp.entity.UsableProduct;
 import com.example.EcoConsciousApp.exception.DataNotFoundException;
 import com.example.EcoConsciousApp.repository.CustomerRepository;
 import com.example.EcoConsciousApp.service.CustomerService;
@@ -12,7 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -67,8 +71,29 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.updateCustomerStatus(id);
     }
 
+    @Override
+    public Customer storeImageFile(MultipartFile multipartFile, String id) {
+        validatePresent(id);
+        Customer customerById = customerRepository.findById(id).get();
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        customerById.setProfileImage(fileName);
+
+        try {
+            customerById.setData(multipartFile.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return customerRepository.save(customerById);
+    }
+
+    @Override
+    public Customer getImageFile(String id) {
+        validatePresent(id);
+        return customerRepository.findById(id).get();
+    }
+
     private void validatePresent(String id) {
-        if (!customerRepository.findById(id).isPresent()){
+        if (!customerRepository.findById(id).isPresent()) {
             String message = String.format(ResponseMessage.NOT_FOUND_MESSAGE, "customer", id);
             throw new DataNotFoundException(message);
         }
