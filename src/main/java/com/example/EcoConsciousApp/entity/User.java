@@ -1,28 +1,31 @@
 package com.example.EcoConsciousApp.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "mst_user")
-@Data
 public class User {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private String id;
-    @Column(name = "full_name")
-    private String fullName;
+    private Integer id;
+    @Column(unique = true)
+    private String userName;
+    private String password;
     @Column(unique = true)
     private String email;
-    private String password;
-    private Integer status;
-    @Column(name = "phone_number")
-    private String phoneNumber;
 
-
+    public User(String userName, String password, String email) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+    }
 }

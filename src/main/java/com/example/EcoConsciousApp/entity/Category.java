@@ -17,6 +17,8 @@ public class Category {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "category_id")
     private String id;
+    @Column(nullable = false)
     private String categoryName;
     private String categoryDescription;
+    private Boolean isDeleted;
 }
