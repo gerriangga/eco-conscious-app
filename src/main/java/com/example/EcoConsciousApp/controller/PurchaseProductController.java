@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 
 @RestController
 @RequestMapping(ApiUrlConstant.PURCHASE_PRODUCT)
@@ -20,17 +21,20 @@ public class PurchaseProductController {
     PurchaseProductService purchaseProductService;
 
     @PostMapping
-    public ResponseEntity<ResponseUtils> customerPurchaseProduct(@Valid @RequestBody PurchaseProduct purchaseProduct){
+    public ResponseEntity<ResponseUtils> customerPurchaseProduct(@Valid @RequestBody PurchaseProduct purchaseProduct) {
         String message = String.format(ResponseMessage.DATA_INSERTED, "purchase product");
         ResponseUtils responseUtils = new ResponseUtils();
+        responseUtils.setTimestamp(new Date());
+        responseUtils.setStatusCode(HttpStatus.CREATED.value());
         responseUtils.setMessage(message);
+        purchaseProductService.transaction(purchaseProduct);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(responseUtils);
     }
 
     @GetMapping("/{id}")
-    public PurchaseProduct getPurchaseProduct(@PathVariable  String id){
+    public PurchaseProduct getPurchaseProduct(@PathVariable String id) {
         return purchaseProductService.getTransactionById(id);
     }
 

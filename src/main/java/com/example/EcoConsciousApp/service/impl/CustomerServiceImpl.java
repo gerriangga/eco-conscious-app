@@ -3,7 +3,6 @@ package com.example.EcoConsciousApp.service.impl;
 import com.example.EcoConsciousApp.constant.ResponseMessage;
 import com.example.EcoConsciousApp.dto.CustomerSearchDTO;
 import com.example.EcoConsciousApp.entity.Customer;
-import com.example.EcoConsciousApp.entity.UsableProduct;
 import com.example.EcoConsciousApp.exception.DataNotFoundException;
 import com.example.EcoConsciousApp.repository.CustomerRepository;
 import com.example.EcoConsciousApp.service.CustomerService;
