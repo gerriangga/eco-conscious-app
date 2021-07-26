@@ -1,6 +1,5 @@
 package com.example.EcoConsciousApp.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -9,7 +8,6 @@ import org.hibernate.annotations.SQLDelete;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import java.util.Date;
 
@@ -41,6 +39,11 @@ public class UsableProduct {
     @NotNull(message = "Product stock is required.")
     @Positive(message = "Product stock must be greater than 0")
     private Integer usableProductStock;
+
+    private String usableProductImage;
+
+    @Lob
+    private byte[] data;
 
     private Boolean usableProductIsDeleted = Boolean.FALSE;
 }

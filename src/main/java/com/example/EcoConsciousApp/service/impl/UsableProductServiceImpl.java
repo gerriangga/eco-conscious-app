@@ -12,7 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -58,6 +61,27 @@ public class UsableProductServiceImpl implements UsableProductService {
     public void deleteUsableProduct(String id) {
         validatePresent(id);
         usableProductRepository.deleteById(id);
+    }
+
+    @Override
+    public UsableProduct storeImageFile(MultipartFile multipartFile, String id) {
+        validatePresent(id);
+        UsableProduct usableProductById = usableProductRepository.findById(id).get();
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        usableProductById.setUsableProductImage(fileName);
+
+        try {
+            usableProductById.setData(multipartFile.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return usableProductRepository.save(usableProductById);
+    }
+
+    @Override
+    public UsableProduct getImageFile(String id) {
+        validatePresent(id);
+        return usableProductRepository.findById(id).get();
     }
 
     private void validatePresent(String id) {
