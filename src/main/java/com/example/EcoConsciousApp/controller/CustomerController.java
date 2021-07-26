@@ -6,7 +6,6 @@ import com.example.EcoConsciousApp.constant.ApiUrlConstant;
 import com.example.EcoConsciousApp.constant.ResponseMessage;
 import com.example.EcoConsciousApp.dto.CustomerSearchDTO;
 import com.example.EcoConsciousApp.entity.Customer;
-import com.example.EcoConsciousApp.entity.UsableProduct;
 import com.example.EcoConsciousApp.service.CustomerService;
 import com.example.EcoConsciousApp.service.ReportCustomerService;
 import com.example.EcoConsciousApp.utils.PageResponseWrapperUtils;
