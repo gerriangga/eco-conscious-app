@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "mst_usable_product")
@@ -30,5 +28,5 @@ public class UsableProduct {
 
     @OneToMany(mappedBy = "usableProduct", cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties("usableProduct")
-    private List<ProductScrapsVendor> usableProductVendorList = new ArrayList<>();
+    private List<VendorUsableProductRegistrationDetail> registrationDetails = new ArrayList<>();
 }
