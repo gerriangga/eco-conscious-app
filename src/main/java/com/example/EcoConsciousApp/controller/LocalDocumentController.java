@@ -1,4 +1,3 @@
-/*
 package com.example.EcoConsciousApp.controller;
 
 import org.springframework.stereotype.Controller;
@@ -14,16 +13,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Controller
-public class DocumentController {
+public class LocalDocumentController {
 
     private static String UPLOADED_PATH = "E:\\EnigmaCamp\\Final Project\\";
 
-    @GetMapping("/")
+    @GetMapping("/localdocs")
     public String index(){
         return "index";
     }
 
-    @PostMapping("/uploads")
+    @PostMapping("/localdocs/uploads")
     public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes){
 
         if(file.isEmpty()){
@@ -42,10 +41,9 @@ public class DocumentController {
         return "redirect:status";
     }
 
-    @GetMapping("/status")
+    @GetMapping("/localdocs/status")
     public String uploadStatus(){
         return "status";
     }
 
 }
-*/

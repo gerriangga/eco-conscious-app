@@ -61,7 +61,7 @@ Email : info@enigmacamp.com, https://www.enigmacamp.com/]]></text>
             </rectangle>
             <image>
                 <reportElement x="460" y="34" width="80" height="70" uuid="43947fa9-d330-4a58-81fe-a765b37f2593"/>
-                <imageExpression><![CDATA["C:/Users/User/OneDrive/Pictures/enigma.png"]]></imageExpression>
+                <imageExpression><![CDATA["C:/Users/User/OneDrive/Pictures/enigma logo.png"]]></imageExpression>
             </image>
         </band>
     </title>
