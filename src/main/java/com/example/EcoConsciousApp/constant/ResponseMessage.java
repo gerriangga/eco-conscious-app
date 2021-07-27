@@ -20,15 +20,12 @@ public class ResponseMessage {
     //Product Scraps Add Supplier Service Impl
     public static final String PRODUCT_ID = "Product Scraps with ID : ";
 
-    //Authentication
-    public static final String INVALID_USERNAME_OR_PASSWORD = "Invalid username or password";
-    public static final String USERNAME_HAS_BEEN_TAKEN = "Username has exist, please input another username";
-    public static final String USER_SUCCESSFULLY_REGISTERED = "You have successfully registered!";
-
     //Jasper Report
     public static final String JASPER_REPORT_FILE_LOCATION = "classpath:ProductScrapsReport.jrxml";
     public static final String REPORT_GENERATED = "Report Generated in Path : ";
     public static final String PRODUCT_SCRAPS_FILE_NAME_HTML = "\\ProductScrapsReport.html";
     public static final String PRODUCT_SCRAPS_FILE_NAME_PDF = "\\ProductScrapsReport.pdf";
-}
 
+    public static final String NOT_FOUND_MESSAGE = "Resource %s with ID %s not found";
+    public static final String DATA_INSERTED = "Data resource %s has been inserted";
+}

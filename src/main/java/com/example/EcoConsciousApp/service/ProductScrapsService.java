@@ -7,10 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
+
 import java.util.List;
 
 public interface ProductScrapsService {
     public ProductScraps saveProductScraps(ProductScraps productScraps);
+
     public List<ProductScraps> getAllProductScraps();
     public ProductScraps getProductScrapsById(String id);
     public void deleteProductScrapsById(String id);
@@ -24,5 +26,9 @@ public interface ProductScrapsService {
 
     //Download Generated Files using Jasper
     public String exportReport(String reportFormat, String searchKey) throws FileNotFoundException, JRException;
+
+    //public Page<ProductScraps> getProductScrapsPerPage(Pageable pageable, ProductScrapsSearchDTO productScrapsSearchDTO);
+    public ProductScraps saveImageFile(MultipartFile multipartFile, String id);
+    public ProductScraps getImageFile(String id);
 
 }

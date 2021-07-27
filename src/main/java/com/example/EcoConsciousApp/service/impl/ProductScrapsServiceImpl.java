@@ -1,17 +1,23 @@
 package com.example.EcoConsciousApp.service.impl;
 
 import com.example.EcoConsciousApp.constant.ResponseMessage;
+import com.example.EcoConsciousApp.dto.ProductScrapsSearchDTO;
 import com.example.EcoConsciousApp.entity.ProductScraps;
 import com.example.EcoConsciousApp.entity.Supplier;
+import com.example.EcoConsciousApp.exception.DataNotFoundException;
 import com.example.EcoConsciousApp.repository.ProductScrapsRepository;
 import com.example.EcoConsciousApp.service.ProductScrapsService;
+import com.example.EcoConsciousApp.specification.ProductScrapsSpecification;
 import com.example.EcoConsciousApp.utils.CSVHelper;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
@@ -42,14 +48,13 @@ public class ProductScrapsServiceImpl implements ProductScrapsService {
 
     @Override
     public ProductScraps getProductScrapsById(String id) {
-        Optional<ProductScraps> temp = productScrapsRepository.findById(id);
-        if(!temp.isPresent())
-            return null;
+        validatePresent(id);
         return productScrapsRepository.findById(id).get();
     }
 
     @Override
     public void deleteProductScrapsById(String id) {
+        validatePresent(id);
         ProductScraps productScraps = getProductScrapsById(id);
         productScraps.setIsDeleted(true);
         productScrapsRepository.save(productScraps);
@@ -113,6 +118,42 @@ public class ProductScrapsServiceImpl implements ProductScrapsService {
         }
 
         return ResponseMessage.REPORT_GENERATED + ResponseMessage.PATH;
+    }
+
+    @Override
+    public ProductScraps saveImageFile(MultipartFile multipartFile, String id) {
+        validatePresent(id);
+        ProductScraps productScraps = productScrapsRepository.findById(id).get();
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        productScraps.setProductScrapsImage(fileName);
+
+        try {
+            productScraps.setData(multipartFile.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return productScrapsRepository.save(productScraps);
+    }
+
+//    @Override
+//    public Page<ProductScraps> getProductScrapsPerPage(Pageable pageable, ProductScrapsSearchDTO productScrapsSearchDTO) {
+//        Specification<ProductScraps> productScrapsSpecification = ProductScrapsSpecification.
+//                getSpecification(productScrapsSearchDTO);
+//        return productScrapsRepository.findAll(productScrapsSpecification, pageable);
+//
+//    }
+
+    @Override
+    public ProductScraps getImageFile(String id) {
+        validatePresent(id);
+        return productScrapsRepository.findById(id).get();
+    }
+
+    private void validatePresent(String id) {
+        if (!productScrapsRepository.findById(id).isPresent()){
+            String message = String.format(ResponseMessage.NOT_FOUND_MESSAGE, "product_scraps", id);
+            throw new DataNotFoundException(message);
+        }
     }
 
 }

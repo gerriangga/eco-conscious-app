@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ public interface ProductScrapsRepository extends JpaRepository<ProductScraps, St
 
     Page<ProductScraps> findByProductNameContains(String name, Pageable pageable);
     List<ProductScraps> findProductScrapsByProductNameContainingIgnoreCase(String name);
+
+    Page<ProductScraps> findAll(Specification<ProductScraps> productScrapsSpecification, Pageable pageable);
+
 }
