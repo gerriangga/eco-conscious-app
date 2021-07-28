@@ -12,12 +12,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .and().oauth2Login()
                 .and().authorizeRequests()
-//                .antMatchers("/v2/api-docs",
-//                        "/configuration/ui",
-//                        "/swagger-resources/**",
-//                        "/configuration/security",
-//                        "/swagger-ui.html",
-//                        "/webjars/**").permitAll()
+                .antMatchers("/v2/api-docs",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**").permitAll()
                 .anyRequest().authenticated();
         //stateless means our input is not stored in any server memory or cookies
     }
