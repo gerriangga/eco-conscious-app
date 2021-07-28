@@ -12,7 +12,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .and().oauth2Login()
                 .and().authorizeRequests()
-                .antMatchers("/v2/api-docs",
+                .antMatchers("/**",
+                        "/v2/api-docs",
                         "/configuration/ui",
                         "/swagger-resources/**",
                         "/configuration/security",
