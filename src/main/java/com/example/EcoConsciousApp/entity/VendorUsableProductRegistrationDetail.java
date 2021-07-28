@@ -13,8 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class VendorUsableProductRegistrationDetail {
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue
     @Column(name = "registration_detail_id")
     private String id;
     private Integer quantity;

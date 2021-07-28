@@ -13,8 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class VendorProductScrapsPurchaseDetail {
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue
     @Column(name = "purchase_detail_id")
     private String id;
     private Double subtotal;

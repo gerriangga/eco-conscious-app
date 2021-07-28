@@ -16,8 +16,7 @@ import javax.validation.constraints.Positive;
 @NoArgsConstructor
 public class PurchaseProductDetail {
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue
     @Column(name = "purchase_product_detail_id")
     private String id;
 

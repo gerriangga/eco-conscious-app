@@ -19,8 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PurchaseProduct {
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue
     @Column(name = "purchase_product_id")
     private String id;
 

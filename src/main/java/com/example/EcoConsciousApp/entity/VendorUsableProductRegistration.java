@@ -17,8 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class VendorUsableProductRegistration {
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue
     @Column(name = "registration_id")
     private String id;
 

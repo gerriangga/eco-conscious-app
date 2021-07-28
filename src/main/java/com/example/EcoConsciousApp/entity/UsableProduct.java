@@ -24,8 +24,7 @@ import java.util.Date;
 public class UsableProduct {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue
     @Column(name = "usable_product_id")
     private String id;
 

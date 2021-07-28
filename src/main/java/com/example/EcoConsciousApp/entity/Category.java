@@ -12,8 +12,7 @@ import javax.persistence.*;
 public class Category {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue
     @Column(name = "category_id")
     private String id;
     @Column(nullable = false)

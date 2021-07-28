@@ -29,8 +29,7 @@ import java.util.*;
 public class ProductScraps {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue
     @Column(name = "product_id")
     private String id;
 

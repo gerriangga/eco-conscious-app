@@ -18,8 +18,7 @@ import java.util.List;
 public class Supplier {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue
     @Column(name = "supplier_id")
     private String id;
 

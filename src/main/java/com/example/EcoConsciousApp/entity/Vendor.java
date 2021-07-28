@@ -17,8 +17,7 @@ import java.util.List;
 public class Vendor {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue
     private String vendorId;
 
     @NotEmpty(message = "Vendor name is required.")

@@ -32,8 +32,7 @@ import java.util.List;
 public class Customer {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue
     @Column(name = "customer_id")
     private String id;
 
