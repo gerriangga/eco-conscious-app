@@ -28,4 +28,20 @@ public class ResponseMessage {
 
     public static final String NOT_FOUND_MESSAGE = "Resource %s with ID %s not found";
     public static final String DATA_INSERTED = "Data resource %s has been inserted";
+    public static final String DATA_UPDATED = "Data resource %s by ID %s has been updated";
+    public static final String DATA_DELETED = "Data resource %s has been deleted";
+
+    public static final String DATA_ADDED = "%s added successfully";
+    public static final String FULL_NAME_REQUIRED = "fullName is required";
+    public static final String ADDRESS_REQUIRED = "address is required";
+    public static final String PHONE_NUMBER_REQUIRED = "phoneNumber is required";
+    public static final String PHONE_NUMBER_UNIQUE = "phoneNumber is already registered";
+    public static final String EMAIL_REQUIRED = "email is required";
+    public static final String EMAIL_VALID_FORMAT = "Email should be a valid email format";
+    public static final String EMAIL_UNIQUE = "Email is already registered";
+    public static final String PASSWORD_REQUIRED = "password is required";
+    public static final String PASSWORD_MIN_LENGTH = "password should have at least 8 characters";
+    public static final String QUANTITY_REQUIRED = "Quantity is required";
+    public static final String QUANTITY_POSITIVE = "Quantity must be greater than 0";
+
 }

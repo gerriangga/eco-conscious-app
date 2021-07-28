@@ -1,6 +1,5 @@
 package com.example.EcoConsciousApp.repository;
 
-import com.example.EcoConsciousApp.entity.ProductScraps;
 import com.example.EcoConsciousApp.entity.UsableProduct;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -9,4 +9,8 @@ public class ApiUrlConstant {
     public static final String VENDOR = "/api/vendors";
     public static final String USABLE_PRODUCT = "/api/usableproducts";
 
+    public static final String CUSTOMER = "/api/customers";
+    public static final String PURCHASE_PRODUCT = "/api/purchaseproducts";
+    public static final String WALLET_REST_TEMPLATE = "http://localhost:8081/wallets";
+
 }

@@ -1,7 +1,6 @@
 package com.example.EcoConsciousApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -13,12 +12,10 @@ import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.*;
@@ -27,7 +24,6 @@ import java.util.*;
 @Entity
 @Table(name = "mst_product_scraps")
 @Data
-@SQLDelete(sql = "UPDATE mst_usable_product SET usable_product_is_deleted = true WHERE usable_product_id = ?")
 @NoArgsConstructor
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class ProductScraps {
@@ -37,7 +33,6 @@ public class ProductScraps {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "product_id")
     private String id;
-
 
     @NotEmpty(message = "Product name is required.")
     private String productName;
@@ -74,6 +69,5 @@ public class ProductScraps {
                 inverseJoinColumns = @JoinColumn(name = "supplier_id"))
     //@JsonManagedReference
     private List<Supplier> suppliers;
-
 
 }
