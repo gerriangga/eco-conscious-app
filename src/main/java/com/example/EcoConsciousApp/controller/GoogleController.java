@@ -14,7 +14,7 @@ public class GoogleController {
     @GetMapping
     public ResponseEntity<Void> welcome() {
         return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY)
-                .header(HttpHeaders.LOCATION, "http://localhost:8090/swagger-ui.html").build();
+                .header(HttpHeaders.LOCATION, "/swagger-ui.html").build();
     }
 
     @GetMapping("/user")
