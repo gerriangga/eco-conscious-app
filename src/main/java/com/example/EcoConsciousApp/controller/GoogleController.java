@@ -17,9 +17,4 @@ public class GoogleController {
                 .header(HttpHeaders.LOCATION, "/swagger-ui.html").build();
     }
 
-    @GetMapping("/user")
-    public Principal user(Principal principal) {
-        System.out.println("username : " + principal.getName());
-        return principal;
-    }
 }
